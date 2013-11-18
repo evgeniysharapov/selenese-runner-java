@@ -21,6 +21,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stoneriver.selenium.selenese.StoneRiverUserDefinedCommandFactory;
+
 import jp.vmi.selenium.selenese.result.Result;
 import jp.vmi.selenium.webdriver.DriverOptions;
 import jp.vmi.selenium.webdriver.DriverOptions.DriverOption;
@@ -305,6 +307,10 @@ public class Main {
             runner.setInitialSpeed(speed);
             Runner.setPrintStream(System.out);
             System.err.println("FileNames=" + StringUtils.join(filenames, ", "));
+
+            // here we register our user defined commands
+            runner.getCommandFactory().registerUserDefinedCommandFactory(new StoneRiverUserDefinedCommandFactory());
+
             Result totalResult = runner.run(filenames);
             runner.finish();
             exitCode = totalResult.getLevel().exitCode;
